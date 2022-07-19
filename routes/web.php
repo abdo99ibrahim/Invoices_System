@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\SectionsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,14 +17,18 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Auth::routes();
+// Auth::routesc();
 Auth::routes([
     'register' => false
 ]);
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('invoices', InvoicesController::class);
+Route::resource('sections', SectionsController::class);
+
 
 Route::get('/{page}', [AdminController::class, 'index']);
