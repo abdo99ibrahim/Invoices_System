@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-class UpdateSectionsRequest extends FormRequest
+
+class StoreProductsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,18 @@ class UpdateSectionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'section_name' => "required|unique:sections,section_name,{$this->id}",
+            'product_name'=>'required|unique:products|max:255',
+            'section_id'=>'required',
             'description'=>'required',
-
         ];
     }
     public function messages()
 {
     return [
-        'section_name.required' => 'يرجى إدخال أسم القسم ',
-        'section_name.unique' => 'اسم القسم مسجل مسبقاً',
+        'product_name.required' => 'يرجى إدخال أسم المنتج ',
+        'product_name.unique' => 'اسم المنتج مسجل مسبقاً',
         'description.required' => 'يرجى إدخال الوصف  ',
+        'section_id.required' => 'يرجى أختيار القسم',
     ];
 }
 }
