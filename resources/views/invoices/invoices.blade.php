@@ -27,7 +27,55 @@
 <!-- row -->
 <div class="row">
     <!--div-->
-p
+    <div class="col-xl-12">
+        <div class="card mg-b-20">
+                <div class="d-flex justify-content-between">
+                    <div class="col-sm-6 col-md-4 col-xl-3 mg-t-20">
+                        {{-- <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
+                            class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a> --}}
+                        <a href="invoices/create" class="modal-effect btn btn-outline-primary btn-sm"><i class="fas fa-plus"></i>&nbsp;إضافة فاتورة</a>
+                    </div>
+                </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example1" class="table key-buttons text-md-nowrap">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom-0">#</th>
+                                <th class="border-bottom-0">رقم الفاتورة</th>
+                                <th class="border-bottom-0">تاريخ الفاتورة</th>
+                                <th class="border-bottom-0">تاريخ الإستحقاق</th>
+                                <th class="border-bottom-0">المنتج</th>
+                                <th class="border-bottom-0">القسم</th>
+                                <th class="border-bottom-0">الخصم</th>
+                                <th class="border-bottom-0">نسبة الضريبة</th>
+                                <th class="border-bottom-0">القيمة المضافة</th>
+                                <th class="border-bottom-0">الأجمالي</th>
+                                <th class="border-bottom-0">الحالة</th>
+                                <th class="border-bottom-0">ملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>342</td>
+                                <td>24-4-1999</td>
+                                <td>17-10-2022</td>
+                                <td>البطاقة الإتمانية</td>
+                                <td>بنك مصر</td>
+                                <td>1000</td>
+                                <td>12%</td>
+                                <td>2567</td>
+                                <td>5467</td>
+                                <td> غير مدفوعة</td>
+                                <td>لم يتم السداد إلى الأن</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 @section('js')
