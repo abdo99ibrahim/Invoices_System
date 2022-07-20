@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sections', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('section_name');
             $table->text('description')->nullable();
             $table->string('created_by');

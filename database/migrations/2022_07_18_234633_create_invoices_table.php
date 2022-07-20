@@ -18,17 +18,20 @@ return new class extends Migration
             $table->string('invoice_number');
             $table->date('invoice_date');
             $table->date('due_date'); // تاريخ الاستحقاق
-            $table->string('product');
-            $table->string('section');
-            $table->string('discount');
-            $table->string('vat_rate');
-            $table->decimal('vat_value',8,2); // الفيمة المضافة
+            $table->string('product');   
+            $table->decimal('Amount_Collection',8,2)->nullable();;
+            $table->decimal('Amount_Commission',8,2);
+            $table->decimal('discount',8,2);
+            $table->decimal('Value_VAT',8,2); // الفيمة المضافة
+            $table->string('Rate_VAT',999); // الفيمة المضافة
             $table->decimal('total',8,2);
             $table->string('status',50);
             $table->integer('value_status');
             $table->text('note')->nullable();
-            $table->string('user');
+            $table->date('Payment_Date')->nullable();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->bigInteger( 'section_id' )->unsigned();
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');    
             $table->timestamps();
         });
     }
