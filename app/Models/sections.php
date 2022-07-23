@@ -14,6 +14,10 @@ class sections extends Model
         'created_by',
     ];
     public function products(){
-        return $this->hasMany(sections::class);
+        return $this->hasMany(products::class);
+     }
+
+     public function invoices(){
+        return $this->hasMany(invoices::class);
      }
 }
