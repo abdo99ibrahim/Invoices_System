@@ -9,6 +9,7 @@ use App\Models\sections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesController extends Controller
 {
@@ -76,12 +77,14 @@ class InvoicesController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
     }
     session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
-    return back();
+    return redirect('/invoices');
 }
 
-    public function show(invoices $invoices)
+    public function show($id)
     {
-        
+        $invoices = invoices::where('id','=',$id)->first();
+        $sections  =sections::all();
+        return view('invoices.status_update_invoice',compact('invoices','sections'));
     }
 
     public function edit($id)
@@ -113,14 +116,66 @@ class InvoicesController extends Controller
         return back();
     }
 
-    public function destroy(invoices $invoices)
+    public function destroy(Request $request)
     {
-        //
+        $invoices = invoices::where('id','=',$request->invoice_id)->first();
+        $attachments = invoices_attachments::where('invoice_id','=',$request->invoice_id)->first();
+        // $attachments = invoices_attachments::findOrFail($request->invoice_id);
+        if(!empty($attachments->invoice_number)){
+            Storage::disk('public_uploads')->deleteDirectory($attachments->invoice_number);
+        }
+        $invoices->forceDelete();
+        session()->flash('delete_invoice');
+        return redirect('/invoices');
     }
     public function getproducts($id)
     {
         $products = DB::table("products")->where("section_id", $id)->pluck("Product_name", "id");
         return json_encode($products);
+    }
+    public function status_update($id, Request $request){
+        $invoices = invoices::findOrFail($id);
+        if($request->status === 'مدفوعة'){
+            $invoices->update([
+                'value_status' => 1,
+                'status' => $request->status,
+                'Payment_Date' => $request->Payment_Date,
+            ]);
+            invoices_details::create([
+                'invoice_id'=>$request->invoice_id,
+                'invoice_number'=>$request->invoice_number,
+                'product'=>$request->product,
+                'section'=>$request->section,
+                'status'=>$request->status,
+                'Value_Status'=>1,
+                'note'=>$request->note,
+                'user'=>(Auth::user()->name),
+                'Payment_Date'=>$request->Payment_Date,
+                
+            ]);
+        }
+        else{
+            $invoices->update([
+                'value_status' => 3,
+                'status' => $request->status,
+                'Payment_Date' => $request->Payment_Date,
+            ]);
+            invoices_details::create([
+                'invoice_id'=>$request->invoice_id,
+                'invoice_number'=>$request->invoice_number,
+                'product'=>$request->product,
+                'section'=>$request->section,
+                'status'=>$request->status,
+                'Value_Status'=>3,
+                'note'=>$request->note,
+                'user'=>(Auth::user()->name),
+                'Payment_Date'=>$request->Payment_Date,
+                
+            ]);
+        }
+        session()->flash('status_update');
+        return redirect('/invoices');
+
     }
 
 }

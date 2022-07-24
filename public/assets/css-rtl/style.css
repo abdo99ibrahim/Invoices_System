@@ -52546,3 +52546,11 @@ a.text-dark:hover, a.text-dark:focus {
   width: 100vw; }
 
 /*# sourceMappingURL=style.css.map */
+.invoices{
+    position:relative;
+}
+.invoices .invoice_number{
+    position:absolute;
+    right:0px;
+    top:-10px;
+}

@@ -212,8 +212,9 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="tab12">
-                                            @foreach ($details as $detail)
-                                                <div class="card-body col-md-12">
+                                            @foreach ($details as$index=>$detail)
+                                                <div class="card-body col-md-12 invoices">
+                                                    <span class="invoice_number text-danger">{{$index+1}}</span>
                                                     <form action="{{ route('invoices.store') }}" method="post"
                                                         enctype="multipart/form-data" autocomplete="off">
                                                         {{ csrf_field() }}

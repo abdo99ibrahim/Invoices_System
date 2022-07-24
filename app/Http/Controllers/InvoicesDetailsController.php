@@ -54,6 +54,7 @@ class InvoicesDetailsController extends Controller
         session()->flash('delete',"تم حذف الفاتورة بنجاح");
         return back();
     }
+    
     // public function open_file($invoice_number,$file_name)
 
     // {
