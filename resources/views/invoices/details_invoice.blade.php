@@ -212,98 +212,54 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="tab12">
-                                            @foreach ($details as$index=>$detail)
-                                                <div class="card-body col-md-12 invoices">
-                                                    <span class="invoice_number text-danger">{{$index+1}}</span>
-                                                    <form action="{{ route('invoices.store') }}" method="post"
-                                                        enctype="multipart/form-data" autocomplete="off">
-                                                        {{ csrf_field() }}
-
-                                                        {{-- 1 --}}
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label for="inputName" class="control-label">رقم
-                                                                    الفاتورة</label>
-                                                                <input type="text" class="form-control" id="inputName"
-                                                                    name="invoice_number"
-                                                                    value="{{ $detail->invoice_number }}" readonly>
-                                                            </div>
-                                                            <div class="col">
-                                                                <label for="inputName"
-                                                                    class="control-label">المنتج</label>
-                                                                <input class="form-control" name="product" id="product"
-                                                                    type="text" value="{{ $detail->product }}"
-                                                                    readonly>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label for="inputName" class="control-label">القسم</label>
-                                                                <input class="form-control" name="section" type="text"
-                                                                    value="{{ $invoices->section->section_name }}"readonly>
-                                                            </div>
-                                                            <div class="col">
-                                                                <label for="inputName"
-                                                                    class="control-label">المستخدم</label>
-                                                                <input type="text" class="form-control" id="Value_VAT"
-                                                                    name="Value_VAT" value="{{ $detail->user }}"
-                                                                    readonly>
-                                                            </div>
-
-                                                        </div>
-
-                                                        {{-- 2 --}}
-                                                        <div class="row ">
-                                                            <div class="col">
-                                                                <label for="inputName" class="control-label">تاريخ
-                                                                    الدفع</label>
-                                                                <input type="text" class="form-control" id="inputName"
-                                                                    name="Amount_collection"
-                                                                    value="{{ $detail->Payment_Date }}" readonly>
-                                                            </div>
-                                                            <div class="col">
-                                                                <label for="inputName"
-                                                                    class="control-label">ملاحظات</label>
-                                                                <input type="text" class="form-control form-control-lg"
-                                                                    id="Amount_Commission" name="Amount_Commission"
-                                                                    value="{{ $detail->note }}" readonly>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- 3 --}}
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <label for="inputName" class="control-label">تاريخ
-                                                                    الأضافة</label>
-                                                                <input type="text" class="form-control" id="Rate_VAT"
-                                                                    name="Rate_VAT" value="{{ $detail->created_at }}"
-                                                                    readonly>
-                                                            </div>
-                                                            <div class="col">
-                                                                <label for="inputName" class="control-label">حالة
-                                                                    الدفع</label>
+                                            <div class="table-responsive mt-15">
+                                                <table class="table center-aligned-table mb-0 table-hover"
+                                                    style="text-align:center">
+                                                    <thead>
+                                                        <tr class="text-dark">
+                                                            <th>#</th>
+                                                            <th>رقم الفاتورة</th>
+                                                            <th>نوع المنتج</th>
+                                                            <th>القسم</th>
+                                                            <th>حالة الدفع</th>
+                                                            <th>تاريخ الدفع </th>
+                                                            <th>ملاحظات</th>
+                                                            <th>تاريخ الاضافة </th>
+                                                            <th>المستخدم</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($details as$index=>$detail)
+                                                            <tr>
+                                                                <td>{{ $index + 1 }}</td>
+                                                                <td>{{ $detail->invoice_number }}</td>
+                                                                <td>{{ $detail->product }}</td>
+                                                                <td>{{ $invoices->section->section_name }}</td>
                                                                 @if ($detail->Value_Status == 1)
-                                                                    <input type="text"
-                                                                        class="form-control text-light bg-success text-center"
-                                                                        id="Value_Status" name="Value_Status"
-                                                                        value="{{ $detail->status }}" readonly>
-                                                                @elseif($detail->Value_Status == 2)
-                                                                    <input type="text"
-                                                                        class="form-control text-light bg-danger text-center"
-                                                                        id="Value_Status" name="Value_Status"
-                                                                        value="{{ $detail->status }}" readonly>
+                                                                    <td><span
+                                                                            class="badge badge-pill badge-success">{{ $detail->status }}</span>
+                                                                    </td>
+                                                                @elseif($detail->Value_Status ==2)
+                                                                    <td><span
+                                                                            class="badge badge-pill badge-danger">{{ $detail->status }}</span>
+                                                                    </td>
                                                                 @else
-                                                                    <input type="text"
-                                                                        class="form-control text-dark bg-warning text-center"
-                                                                        id="Value_Status" name="Value_Status"
-                                                                        value="{{ $detail->status }}" readonly>
+                                                                    <td><span
+                                                                            class="badge badge-pill badge-warning">{{ $detail->status }}</span>
+                                                                    </td>
                                                                 @endif
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            @endforeach
+                                                                <td>{{ $detail->Payment_Date }}</td>
+                                                                <td>{{ $detail->note }}</td>
+                                                                <td>{{ $detail->created_at }}</td>
+                                                                <td>{{ $detail->user }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+
+
+                                            </div>
+
                                         </div>
                                         <div class="tab-pane" id="tab13">
                                             <!--المرفقات-->

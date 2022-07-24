@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    قائمة الفواتير - برنامج الفواتير
+     الفواتير المدفوعة - برنامج الفواتير
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -18,44 +18,33 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto"> الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة
-                    الفواتير</span>
+                <h4 class="content-title mb-0 my-auto"> الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير المدفوعة</span>
             </div>
         </div>
     </div>
     <!-- breadcrumb -->
 @endsection
 @section('content')
-    @if (session()->has('delete_invoice'))
-        <script>
-            window.onload = function() {
-                notif({
-                    msg: "تم حذف الفاتورة بنجاح",
-                    type: "success"
-                })
-            }
-        </script>
-    @endif
-    @if (session()->has('status_update'))
-        <script>
-            window.onload = function() {
-                notif({
-                    msg: "تم تعديل حالة الفاتورة بنجاح",
-                    type: "success"
-                })
-            }
-        </script>
-    @endif    
-    @if (session()->has('restore_invoice'))
-        <script>
-            window.onload = function() {
-                notif({
-                    msg: "تم استعادة الفاتورة بنجاح",
-                    type: "success"
-                })
-            }
-        </script>
-    @endif
+@if (session()->has('delete_invoice'))
+<script>
+    window.onload = function() {
+        notif({
+            msg: "تم حذف الفاتورة بنجاح",
+            type: "success"
+        })
+    }
+</script>
+@endif
+@if (session()->has('status_update'))
+<script>
+    window.onload = function() {
+        notif({
+            msg: "تم تعديل حالة الفاتورة بنجاح",
+            type: "success"
+        })
+    }
+</script>
+@endif
     <!-- row -->
     <div class="row">
         <!--div-->
@@ -63,8 +52,6 @@
             <div class="card mg-b-20">
                 <div class="d-flex justify-content-between">
                     <div class="col-sm-6 col-md-4 col-xl-3 mg-t-20">
-                        {{-- <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
-                            class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a> --}}
                         <a href="invoices/create" class="modal-effect btn btn-outline-primary btn-sm"><i
                                 class="fas fa-plus"></i>&nbsp;إضافة فاتورة</a>
                     </div>
@@ -136,19 +123,19 @@
                                                             class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;حذف
                                                         الفاتورة</a>
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ URL::route('status_show', [$invoice->id]) }}"><i
-                                                            class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;تغير
-                                                        حالة
-                                                        الدفع</a>
+                                                     <a class="dropdown-item"
+                                                            href="{{URL::route('status_show',[$invoice->id])}}"><i
+                                                                class=" text-success fas fa-money-bill"></i>&nbsp;&nbsp;تغير
+                                                            حالة
+                                                            الدفع</a>
 
-                                                    <a class="dropdown-item" href="#"
-                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#Transfer_invoice"><i
-                                                            class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
-                                                        الارشيف</a>
+                                                       {{-- <a class="dropdown-item" href="#"
+                                                            data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                            data-target="#Transfer_invoice"><i
+                                                                class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
+                                                            الارشيف</a>
 
-                                                    {{-- <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
+                                                        <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
                                                                 class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
                                                             الفاتورة
                                                         </a> --}}
@@ -189,34 +176,6 @@
                 </div>
             </div>
         </div>
-        <!-- ارشيف الفاتورة -->
-        <div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">ارشفة الفاتورة</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <form action="{{ route('invoices.destroy', 'test') }}" method="post">
-                            {{ method_field('delete') }}
-                            {{ csrf_field() }}
-                    </div>
-                    <div class="modal-body">
-                        هل انت متاكد من عملية الارشفة ؟
-                        <input type="hidden" name="invoice_id" id="invoice_id" value="">
-                        <input type="hidden" name="id_page" id="id_page" value="2">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                        <button type="submit" class="btn btn-success">تاكيد</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
     </div>
 @endsection
@@ -245,13 +204,6 @@
     <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
     <script>
         $('#delete_invoice').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget);
-            var invoice_id = button.data('invoice_id');
-            var modal = $(this);
-
-            modal.find('.modal-body #invoice_id').val(invoice_id);
-        })
-        $('#Transfer_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var invoice_id = button.data('invoice_id');
             var modal = $(this);
