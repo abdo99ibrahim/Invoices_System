@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreInvoiceRequest;
+use App\Http\Requests\UpdateInvoiceRequest;
+use App\Http\Requests\UpdateStatusRequest;
 use App\Models\invoices;
 use App\Models\invoices_attachments;
 use App\Models\invoices_details;
@@ -28,7 +31,7 @@ class InvoicesController extends Controller
         return view('invoices.add_invoice', compact('sections'));
     }
 
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
         invoices::create([
             'invoice_number'=>$request->invoice_number,
@@ -95,7 +98,7 @@ class InvoicesController extends Controller
         return view('invoices.edit_invoice',compact('invoices','sections'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateInvoiceRequest $request)
     {
         $invoices = invoices::findOrFail($request->invoice_id);
         $invoices->update([
@@ -112,15 +115,24 @@ class InvoicesController extends Controller
             'total' =>$request->Total,
             'note' =>$request->note,
         ]);
-        session()->flash('Edit', 'تم تعديل الفاتورة بنجاح');
-        return back();
+        $details = invoices_details::where('invoice_id','=',$request->invoice_id)->update([
+            'invoice_number'=>$request->invoice_number,
+            'product' =>$request->product,
+            'section' =>$request->Section,
+            'note' =>$request->note,
+        ]);
+        // session()->flash('Edit', 'تم تعديل الفاتورة بنجاح');
+        session()->flash('edit_invoice');
+        return redirect('/invoices');
     }
 
     public function destroy(Request $request)
     {
         $invoices = invoices::where('id','=',$request->invoice_id)->first();
         $attachments = invoices_attachments::where('invoice_id','=',$request->invoice_id)->first();
-        if(!($request->id_page = 2)){
+
+        $id_page =$request->id_page;
+        if(!$id_page){
             if(!empty($attachments->invoice_number)){
                 Storage::disk('public_uploads')->deleteDirectory    ($attachments->invoice_number);
          }
@@ -139,8 +151,9 @@ class InvoicesController extends Controller
         $products = DB::table("products")->where("section_id", $id)->pluck("Product_name", "id");
         return json_encode($products);
     }
-    public function status_update($id, Request $request){
+    public function status_update($id, UpdateStatusRequest $request){
         $invoices = invoices::findOrFail($id);
+        
         if($request->status === 'مدفوعة'){
             $invoices->update([
                 'value_status' => 1,

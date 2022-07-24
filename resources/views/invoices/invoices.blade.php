@@ -56,6 +56,16 @@
             }
         </script>
     @endif
+    @if (session()->has('edit_invoice'))
+<script>
+    window.onload = function() {
+        notif({
+            msg: "تم تعديل الفاتورة بنجاح",
+            type: "success"
+        })
+    }
+</script>
+@endif
     <!-- row -->
     <div class="row">
         <!--div-->

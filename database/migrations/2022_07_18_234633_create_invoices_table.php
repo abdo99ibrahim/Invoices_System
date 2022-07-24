@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('product');   
             $table->decimal('Amount_Collection',8,2)->nullable();;
             $table->decimal('Amount_Commission',8,2);
-            $table->decimal('discount',8,2);
+            $table->decimal('discount',8,2)->default(0);
             $table->decimal('Value_VAT',8,2); // الفيمة المضافة
             $table->string('Rate_VAT',999); // الفيمة المضافة
             $table->decimal('total',8,2);

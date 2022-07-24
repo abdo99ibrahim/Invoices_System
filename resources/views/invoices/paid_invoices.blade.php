@@ -129,13 +129,13 @@
                                                             حالة
                                                             الدفع</a>
 
-                                                       {{-- <a class="dropdown-item" href="#"
+                                                        <a class="dropdown-item" href="#"
                                                             data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
                                                             data-target="#Transfer_invoice"><i
                                                                 class="text-warning fas fa-exchange-alt"></i>&nbsp;&nbsp;نقل الي
                                                             الارشيف</a>
 
-                                                        <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
+                                                       {{-- <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
                                                                 class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
                                                             الفاتورة
                                                         </a> --}}
@@ -176,6 +176,34 @@
                 </div>
             </div>
         </div>
+        <!-- ارشيف الفاتورة -->
+        <div class="modal fade" id="Transfer_invoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ارشفة الفاتورة</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <form action="{{ route('invoices.destroy', 'test') }}" method="post">
+                            {{ method_field('delete') }}
+                            {{ csrf_field() }}
+                    </div>
+                    <div class="modal-body">
+                        هل انت متاكد من عملية الارشفة ؟
+                        <input type="hidden" name="invoice_id" id="invoice_id" value="">
+                        <input type="hidden" name="id_page" id="id_page" value="2">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                        <button type="submit" class="btn btn-success">تاكيد</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </div>
 @endsection
@@ -204,6 +232,13 @@
     <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
     <script>
         $('#delete_invoice').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var invoice_id = button.data('invoice_id');
+            var modal = $(this);
+
+            modal.find('.modal-body #invoice_id').val(invoice_id);
+        })
+        $('#Transfer_invoice').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var invoice_id = button.data('invoice_id');
             var modal = $(this);

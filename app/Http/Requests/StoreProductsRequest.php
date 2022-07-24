@@ -34,6 +34,7 @@ class StoreProductsRequest extends FormRequest
     return [
         'product_name.required' => 'يرجى إدخال أسم المنتج ',
         'product_name.unique' => 'اسم المنتج مسجل مسبقاً',
+        'product_name.max' => 'أقصى عدد من الحروف 255 حرف',
         'description.required' => 'يرجى إدخال الوصف  ',
         'section_id.required' => 'يرجى أختيار القسم',
     ];
