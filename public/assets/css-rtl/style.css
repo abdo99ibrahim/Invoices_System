@@ -25672,15 +25672,18 @@ input.parsley-error:focus, textarea.parsley-error:focus, input.parsley-success:f
 
 @media (min-width: 768px) {
   .invoice-header {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    flex-direction: row-reverse; } }
+    flex-direction: row; */
+    text-align:center;
+ } 
+}
 
 .invoice-title {
   margin-bottom: 0;
   text-transform: uppercase;
   color: #d0d7e8;
-  font-weight: 700; }
+  font-weight: 700;}
 
 .billed-from {
   margin-top: 25px;
@@ -25716,11 +25719,14 @@ input.parsley-error:focus, textarea.parsley-error:focus, input.parsley-success:f
     border-top: 1px dotted #d0d7e8; }
   .invoice-info-row span:first-child {
     color: #4d5875; }
-
+    .table-invoice thead {
+        background-color:#eee 
+    }
 .table-invoice thead > tr > th, .table-invoice thead > tr > td {
   font-size: 11px;
   font-weight: 700;
-  color: #737f9e; }
+  color: #737f9e;
+}
 
 .table-invoice tbody > tr > th:first-child, .table-invoice tbody > tr > td:first-child {
   color: #242f48;

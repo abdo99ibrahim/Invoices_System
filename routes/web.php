@@ -51,4 +51,8 @@ Route::get('/unpaid_invoices',[InvoicesController::class,'unpaid_invoices']);
 
 
 Route::resource('Archive',InvoiceArchiveController::class);
+
+Route::get('Print_invoice/{id}',[InvoicesController::class,'Print_invoice'])->name('status_show');
+
 Route::get('/{page}', [AdminController::class, 'index']);
+
