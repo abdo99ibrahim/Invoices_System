@@ -45,7 +45,7 @@
                 })
             }
         </script>
-    @endif    
+    @endif
     @if (session()->has('restore_invoice'))
         <script>
             window.onload = function() {
@@ -57,15 +57,15 @@
         </script>
     @endif
     @if (session()->has('edit_invoice'))
-<script>
-    window.onload = function() {
-        notif({
-            msg: "تم تعديل الفاتورة بنجاح",
-            type: "success"
-        })
-    }
-</script>
-@endif
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "تم تعديل الفاتورة بنجاح",
+                    type: "success"
+                })
+            }
+        </script>
+    @endif
     <!-- row -->
     <div class="row">
         <!--div-->
@@ -73,10 +73,13 @@
             <div class="card mg-b-20">
                 <div class="d-flex justify-content-between">
                     <div class="col-sm-6 col-md-4 col-xl-3 mg-t-20">
-                        {{-- <a href="invoices/create" class="modal-effect btn btn-sm btn-primary" style="color:white"><i
-                            class="fas fa-plus"></i>&nbsp; اضافة فاتورة</a> --}}
-                        <a href="invoices/create" class="modal-effect btn btn-outline-primary btn-sm"><i
-                                class="fas fa-plus"></i>&nbsp;إضافة فاتورة</a>
+                        <a href="invoices/create" class="modal-effect btn btn-outline-primary btn-sm ml-3"><i
+                                class="fas fa-plus"></i>&nbsp;إضافة فاتورة
+                        </a>
+
+                        <a href={{ url('invoices_export') }} class="modal-effect btn btn-success btn-sm py-1 "><i
+                                class="fas fa-file-download"></i>&nbsp;&nbsp;تصدير الفواتير
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -159,9 +162,9 @@
                                                         الارشيف</a>
 
                                                     <a class="dropdown-item" href="Print_invoice/{{ $invoice->id }}"><i
-                                                                class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
-                                                            الفاتورة
-                                                        </a> --}}
+                                                            class="text-success fas fa-print"></i>&nbsp;&nbsp;طباعة
+                                                        الفاتورة
+                                                    </a> --}}
                                                 </div>
                                             </div>
                                         </td>

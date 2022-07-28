@@ -53,7 +53,8 @@
                 <div class="d-flex justify-content-between">
                     <div class="col-sm-6 col-md-4 col-xl-3 mg-t-20">
                         <a href="invoices/create" class="modal-effect btn btn-outline-primary btn-sm"><i
-                                class="fas fa-plus"></i>&nbsp;إضافة فاتورة</a>
+                                class="fas fa-plus"></i>&nbsp;إضافة فاتورة
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">

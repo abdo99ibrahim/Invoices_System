@@ -9,22 +9,27 @@ use App\Models\invoices;
 use App\Models\invoices_attachments;
 use App\Models\invoices_details;
 use App\Models\sections;
+use App\Models\User;
+use App\Notifications\AddInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\InvoicesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
 {
-    
+
     public function index()
     {
-     $invoices = invoices::all();   
+     $invoices = invoices::all();
      $sections = sections::all();
         return view('invoices.invoices',compact('invoices','sections'));
     }
 
-    
+
     public function create()
     {
         $sections = sections::all();
@@ -59,7 +64,7 @@ class InvoicesController extends Controller
             'note' =>$request->note,
             'invoice_id' =>$invoice_id,
             'user' =>(Auth::user()->name),
-            
+
         ]);
         if ($request->hasFile('pic')) {
 
@@ -79,8 +84,13 @@ class InvoicesController extends Controller
             $imageName = $request->pic->getClientOriginalName();
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
     }
-    session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
-    return redirect('/invoices');
+            // sending mail
+            // $user = User::first();
+            // Notification::sendNow($user, new AddInvoice($invoice_id));
+
+
+            session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
+            return redirect('/invoices');
 }
 
     public function show($id)
@@ -153,7 +163,7 @@ class InvoicesController extends Controller
     }
     public function status_update($id, UpdateStatusRequest $request){
         $invoices = invoices::findOrFail($id);
-        
+
         if($request->status === 'مدفوعة'){
             $invoices->update([
                 'value_status' => 1,
@@ -170,7 +180,7 @@ class InvoicesController extends Controller
                 'note'=>$request->note,
                 'user'=>(Auth::user()->name),
                 'Payment_Date'=>$request->Payment_Date,
-                
+
             ]);
         }
         else{
@@ -189,7 +199,7 @@ class InvoicesController extends Controller
                 'note'=>$request->note,
                 'user'=>(Auth::user()->name),
                 'Payment_Date'=>$request->Payment_Date,
-                
+
             ]);
         }
         session()->flash('status_update');
@@ -213,6 +223,10 @@ class InvoicesController extends Controller
     public function Print_invoice($id){
         $invoices = invoices::where('id','=',$id)->first();
         return view('invoices.print_invoice',compact('invoices'));
+    }
+
+    public function export(){
+        return Excel::download(new InvoicesExport,'كل الفواتير.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
 }

@@ -13,6 +13,13 @@ class invoices extends Model
     // protected $fillable= ['invoice_number','invoice_date','due_date','product','section'];
     protected $guarded = [];
 
+    //Export Exel
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    //Relationship
     public function section(){
         return $this->belongsTo(sections::class);
      }
