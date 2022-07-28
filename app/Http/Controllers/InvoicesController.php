@@ -85,8 +85,8 @@ class InvoicesController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
     }
             // sending mail
-            // $user = User::first();
-            // Notification::sendNow($user, new AddInvoice($invoice_id));
+            $user = User::first();
+            Notification::sendNow($user, new AddInvoice($invoice_id));
 
 
             session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
