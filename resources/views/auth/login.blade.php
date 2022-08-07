@@ -8,6 +8,8 @@
 @section('css')
 <!-- Sidemenu-respoansive-tabs css -->
 <link href="{{URL::asset('assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css')}}" rel="stylesheet">
+ <!--Internal   Notify -->
+ <link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
 		<div class="container-fluid">
@@ -21,7 +23,7 @@
 							<div class="row">
 								<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
 									<div class="card-sigin">
-										<div class="mb-5 d-flex"> <a href="{{ url('/' . $page='Home') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a><h1 class="main-logo1 ml-1 mr-0 my-auto tx-28">Mora<span>So</span>ft</h1></div>
+										<div class="mb-5 d-flex"> <a href="{{ url('/' . $page='Home') }}"><img src="{{URL::asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a><h1 class="mr-3">فواتيرى</h1></div>
 										<div class="card-sigin">
 											<div class="main-signup-header">
 												<h2>مرحبا بك</h2>
@@ -39,8 +41,8 @@
 													</div>
 
 												 <div class="form-group">
-											 	 <label>كلمة المرور</label> 
-                                                
+											 	 <label>كلمة المرور</label>
+
                                                   <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                                   @error('password')
@@ -85,4 +87,7 @@
 		</div>
 @endsection
 @section('js')
+ <!--Internal  Notify js -->
+ <script src="{{ URL::asset('assets/plugins/notify/js/notifIt.js') }}"></script>
+ <script src="{{ URL::asset('assets/plugins/notify/js/notifit-custom.js') }}"></script>
 @endsection

@@ -264,6 +264,7 @@
                                         <div class="tab-pane" id="tab13">
                                             <!--المرفقات-->
                                             <div class="card card-statistics">
+                                                @can('اضافة مرفق')
                                                 <div class="card-body">
                                                     <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
                                                     <h5 class="card-title">اضافة مرفقات</h5>
@@ -284,7 +285,7 @@
                                                             name="uploadedFile">تاكيد</button>
                                                     </form>
                                                 </div>
-
+                                                @endcan
                                                 <br>
 
                                                 <div class="table-responsive mt-15">
@@ -320,14 +321,14 @@
                                                                             role="button"><i
                                                                                 class="fas fa-download"></i>&nbsp;
                                                                             تحميل</a>
-
+                                                                            @can('حذف المرفق')
                                                                         <button class="btn btn-outline-danger btn-sm"
                                                                             data-toggle="modal"
                                                                             data-file_name="{{ $attachment->file_name }}"
                                                                             data-invoice_number="{{ $attachment->invoice_number }}"
                                                                             data-id_file="{{ $attachment->id }}"
                                                                             data-target="#delete_file">حذف</button>
-
+                                                                            @endcan
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

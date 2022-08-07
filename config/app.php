@@ -181,11 +181,12 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
-         * Package Service Providers...
-         */
+        * Package Service Providers...
+        */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
